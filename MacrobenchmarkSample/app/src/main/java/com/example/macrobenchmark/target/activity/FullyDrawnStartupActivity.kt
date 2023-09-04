@@ -17,6 +17,8 @@
 package com.example.macrobenchmark.target.activity
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.ReportDrawnWhen
 import androidx.activity.compose.setContent
@@ -29,6 +31,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.core.os.postDelayed
 import com.example.macrobenchmark.target.util.SampleViewModel
 
 class FullyDrawnStartupActivity : ComponentActivity() {
@@ -37,9 +40,17 @@ class FullyDrawnStartupActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Throws error
+        Handler(Looper.getMainLooper()).postDelayed(7000) {
+            reportFullyDrawn()
+        }
+        // Works all right
+//        Handler(Looper.getMainLooper()).postDelayed(1000) {
+//            reportFullyDrawn()
+//        }
         setContent {
             var isLoaded by remember { mutableStateOf(false) }
-            ReportDrawnWhen { isLoaded }
+//            ReportDrawnWhen { isLoaded }
 
             LaunchedEffect(Unit) {
                 isLoaded = sampleViewModel.data.isReady()

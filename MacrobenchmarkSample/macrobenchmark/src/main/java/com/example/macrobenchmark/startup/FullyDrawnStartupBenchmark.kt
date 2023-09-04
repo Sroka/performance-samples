@@ -49,6 +49,6 @@ class FullyDrawnStartupBenchmark {
         startActivityAndWait(intent)
 
         // Waits for an element that corresponds to fully drawn state
-        device.wait(Until.hasObject(By.text("Fully Drawn")), 10_000)
+        device.wait(Until.hasObject(By.text("Fully Drawnaaaaaaaaaa")), 20_000)
     }
 }
